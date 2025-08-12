@@ -1,0 +1,14 @@
+import Users from "../dao/Users.dao.js";
+import Pet from "../dao/Pets.dao.js";
+import Adoption from "../dao/Adoption.js";
+import MockingDAO from "../dao/Mocking.dao.js";
+
+import UserRepository from "../repository/UserRepository.js";
+import PetRepository from "../repository/PetRepository.js";
+import AdoptionRepository from "../repository/AdoptionRepository.js";
+import MockingRepository from "../repository/MockingRepository.js";
+
+export const usersService = new UserRepository(new Users());
+export const petsService = new PetRepository(new Pet());
+export const adoptionsService = new AdoptionRepository(new Adoption());
+export const mockingService = new MockingRepository(new MockingDAO(), usersService, petsService);
