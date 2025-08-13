@@ -14,22 +14,19 @@ export const generatePet = () => {
     };
 };
 
-// Generar un usuario ficticio (versión simple como solicitas)
+// Generar un usuario ficticio
 export const generateUser = async () => {
-    let first_name = faker.person.firstName();
-    let last_name = faker.person.lastName();
-    let email = faker.internet.email({ firstName: first_name, lastName: last_name });
-    let password = await createHash('coder123'); // Siempre "coder123" encriptada como se solicita
-    
     const roles = ['user', 'admin'];
+    const first_name = faker.person.firstName();
+    const last_name = faker.person.lastName();
     
     return {
         first_name,
         last_name,
-        email,
-        password,
+        email: faker.internet.email({ firstName: first_name, lastName: last_name }),
+        password: await createHash('coder123'),
         role: faker.helpers.arrayElement(roles),
-        pets: [] // Array vacío como se solicita
+        pets: []
     };
 };
 

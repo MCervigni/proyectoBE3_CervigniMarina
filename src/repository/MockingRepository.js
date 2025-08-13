@@ -1,16 +1,17 @@
+import { generatePets, generateUsers } from '../utils/mocking.js';
+
 export default class MockingRepository {
-    constructor(dao, usersService, petsService) {
-        this.dao = dao;
+    constructor(usersService, petsService) {
         this.usersService = usersService;
         this.petsService = petsService;
     }
 
     generateMockPets = async (count) => {
-        return this.dao.generateMultiplePets(count);
+        return generatePets(count);
     };
 
     generateMockUsers = async (count) => {
-        return await this.dao.generateMultipleUsers(count);
+        return await generateUsers(count);
     };
 
     insertMockData = async ({ users, pets }) => {
@@ -21,7 +22,7 @@ export default class MockingRepository {
 
         // Generar e insertar usuarios si se especifica
         if (users && users > 0) {
-            const generatedUsers = await this.dao.generateMultipleUsers(parseInt(users));
+            const generatedUsers = await generateUsers(parseInt(users));
             
             for (const user of generatedUsers) {
                 try {
@@ -35,7 +36,7 @@ export default class MockingRepository {
 
         // Generar e insertar mascotas si se especifica
         if (pets && pets > 0) {
-            const generatedPets = this.dao.generateMultiplePets(parseInt(pets));
+            const generatedPets = generatePets(parseInt(pets));
             
             for (const pet of generatedPets) {
                 try {
