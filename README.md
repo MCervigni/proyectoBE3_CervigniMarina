@@ -10,6 +10,8 @@ Aplicación backend para gestión de adopciones de mascotas desarrollada con Nod
 - **Sistema de Mocking**: Generación de datos ficticios para testing
 - **Autenticación**: Sistema de sessions y cookies
 - **Base de Datos**: MongoDB con Mongoose
+- **Tests Automatizados**: Suite de tests con Mocha y Chai
+- **Documentación API**: Swagger para endpoints de Users y Pets
 - **Arquitectura por Capas**: Router → Controller → Service → Repository → DAO
 
 ## 🐳 Docker
@@ -21,15 +23,71 @@ docker pull mcervigni/img-entregafinal-adoptme:1.0.0
 
 **Link a Docker Hub**: [mcervigni/img-entregafinal-adoptme](https://hub.docker.com/r/mcervigni/img-entregafinal-adoptme)
 
-### Ejecutar con Docker
-```bash
-# Ejecutar la imagen desde Docker Hub
-docker run -p 8080:8080 mcervigni/img-entregafinal-adoptme:1.0.0
 
-# O construir localmente
-docker build -t adoptme-app .
-docker run -p 8080:8080 adoptme-app
+### Variables de Entorno
+```env
+PORT=8080
+MONGO_URL=mongodb+srv://usuario:password@cluster.mongodb.net/
+DB_NAME=adoptme
 ```
+
+## 🧪 Testing
+
+### Suite de Tests Automatizados
+El proyecto incluye tests automatizados para la ruta **Pets** cubriendo los métodos principales:
+
+```bash
+# Ejecutar tests
+npm test
+
+# Resultados esperados:
+✔ 11 tests passing
+✔ GET /api/pets - Obtener todas las mascotas
+✔ POST /api/pets - Crear nueva mascota
+✔ PUT /api/pets/:pid - Actualizar mascota existente
+```
+
+### Cobertura de Tests
+- ✅ **GET operations** - Obtener mascotas y validar estructura
+- ✅ **POST operations** - Crear mascotas con validaciones
+- ✅ **PUT operations** - Actualizar mascotas existentes
+- ✅ **Validaciones** - Campos requeridos (name, specie, birthDate)
+- ✅ **Error handling** - Casos de datos incompletos o inválidos
+- ✅ **Data integrity** - Verificación de tipos de datos
+
+### Tecnologías de Testing
+- **Mocha**: Framework de testing
+- **Chai**: Librería de aserciones
+- **Supertest**: Testing de APIs HTTP
+
+## 📖 Documentación API - Swagger
+
+### Acceso a Documentación
+```bash
+# Iniciar servidor y acceder a:
+http://localhost:8080/api-docs
+```
+
+### Endpoints Documentados
+La documentación Swagger incluye:
+
+#### 👥 **Users** (Usuarios)
+- Esquemas de datos completos
+- Ejemplos de requests y responses
+- Códigos de estado HTTP
+- Validaciones requeridas
+
+#### 🐕 **Pets** (Mascotas)
+- Modelos de datos detallados
+- Operaciones CRUD documentadas
+- Parámetros de entrada
+- Respuestas esperadas
+
+### Características de la Documentación
+- ✅ **Interfaz interactiva** para probar endpoints
+- ✅ **Esquemas JSON** definidos
+- ✅ **Ejemplos de uso** para cada endpoint
+- ✅ **Validaciones** y tipos de datos especificados
 
 ## 📡 API Endpoints
 
@@ -75,6 +133,7 @@ src/
 ├── repository/     # Repositorios (lógica de negocio)
 ├── routes/         # Definición de rutas
 ├── services/       # Servicios (orquestación)
+├── test/           # Tests automatizados
 ├── utils/          # Utilidades y helpers
 ├── config/         # Configuración
 └── app.js          # Punto de entrada
@@ -85,6 +144,26 @@ src/
 - **Backend**: Node.js, Express.js
 - **Base de Datos**: MongoDB con Mongoose
 - **Autenticación**: bcrypt, cookie-parser
-- **Testing**: Faker.js para datos ficticios
+- **Testing**: Mocha, Chai, Supertest
+- **Documentación**: Swagger/OpenAPI
+- **Mocking**: Faker.js para datos ficticios
 - **Contenización**: Docker
 - **Variables de Entorno**: dotenv
+
+## 🚀 Instalación y Uso
+
+### Requisitos
+- Node.js 18+
+- MongoDB Atlas o local
+- Docker (opcional)
+
+## 📊 Estado del Proyecto
+
+- ✅ **API REST** completa y funcional
+- ✅ **Base de datos** MongoDB Atlas integrada
+- ✅ **Tests automatizados** (11/11 tests passing)
+- ✅ **Documentación** Swagger para Users y Pets
+- ✅ **Docker** imagen disponible en DockerHub
+- ✅ **Mocking** de datos para desarrollo y testing
+- ✅ **Autenticación** con sessions y cookies
+

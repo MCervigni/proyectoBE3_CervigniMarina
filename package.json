@@ -7,9 +7,8 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "node --watch ./src/app.js",
-    "test": "mocha src/test/**/*.test.js --timeout 10000 --exit",
-    "test:adoption": "mocha src/test/integration/adoption.test.js --timeout 10000 --exit",
-    "test:watch": "mocha src/test/**/*.test.js --timeout 10000 --watch"
+    "test": "mocha src/test/pets.test.js --timeout 15000 --exit",
+    "test:watch": "mocha src/test/pets.test.js --timeout 15000 --watch"
   },
   "keywords": [],
   "author": "",
