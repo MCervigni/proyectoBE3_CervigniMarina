@@ -34,24 +34,27 @@ DB_NAME=adoptme
 ## 🧪 Testing
 
 ### Suite de Tests Automatizados
-El proyecto incluye tests automatizados para la ruta **Pets** cubriendo los métodos principales:
+El proyecto incluye tests automatizados para las rutas **Pets** y **Users** cubriendo los métodos principales:
 
 ```bash
 # Ejecutar tests
 npm test
 
 # Resultados esperados:
-✔ 11 tests passing
 ✔ GET /api/pets - Obtener todas las mascotas
-✔ POST /api/pets - Crear nueva mascota
-✔ PUT /api/pets/:pid - Actualizar mascota existente
+✔ POST /api/pets - Crear nueva mascota (incluye validaciones de campos requeridos)
+✔ GET /api/pets/:pid - Obtener mascota por ID (válido e inválido)
+✔ GET /api/users - Obtener todos los usuarios
+✔ POST /api/users - Crear usuario de prueba para testeo
+✔ GET /api/users/:uid - Obtener usuario por ID (válido e inválido)
 ```
 
+Nota: Los tests automatizados se ejecutan localmente con Node.js, no dentro del contenedor Docker.
+
 ### Cobertura de Tests
-- ✅ **GET operations** - Obtener mascotas y validar estructura
-- ✅ **POST operations** - Crear mascotas con validaciones
-- ✅ **PUT operations** - Actualizar mascotas existentes
-- ✅ **Validaciones** - Campos requeridos (name, specie, birthDate)
+- ✅ **GET operations** - Obtener mascotas y usuarios, validar estructura y respuesta
+- ✅ **POST operations** - Crear mascotas y usuarios con validaciones (campos requeridos, datos incompletos, datos vacíos)
+- ✅ **Validaciones** - Campos requeridos (name, specie, birthDate en pets; first_name, last_name, email, password en users)
 - ✅ **Error handling** - Casos de datos incompletos o inválidos
 - ✅ **Data integrity** - Verificación de tipos de datos
 
@@ -72,16 +75,33 @@ http://localhost:8080/api-docs
 La documentación Swagger incluye:
 
 #### 👥 **Users** (Usuarios)
-- Esquemas de datos completos
-- Ejemplos de requests y responses
-- Códigos de estado HTTP
-- Validaciones requeridas
+- Esquemas de datos completos y actualizados
+- Ejemplos de requests y responses reales, incluyendo el campo `__v`
+- Códigos de estado HTTP para todos los casos (200, 400, 404, 500)
+- Validaciones requeridas y mensajes de error coherentes con la API (`Incomplete values`, `User not found`)
+- Documentación completa para todos los métodos CRUD:
+  - `GET /api/users` (todos)
+  - `POST /api/users` (crear)
+  - `GET /api/users/{uid}` (por ID)
+  - `PUT /api/users/{uid}` (actualizar)
+  - `DELETE /api/users/{uid}` (eliminar)
 
 #### 🐕 **Pets** (Mascotas)
-- Modelos de datos detallados
-- Operaciones CRUD documentadas
-- Parámetros de entrada
-- Respuestas esperadas
+- Modelos de datos detallados y ejemplos reales, incluyendo el campo `__v`
+- Operaciones CRUD documentadas:
+  - `GET /api/pets` (todas)
+  - `POST /api/pets` (crear)
+  - `GET /api/pets/{pid}` (por ID)
+  - `PUT /api/pets/{pid}` (actualizar)
+  - `DELETE /api/pets/{pid}` (eliminar)
+- Parámetros de entrada y ejemplos claros
+- Respuestas esperadas para todos los casos (200, 400, 404, 500)
+- Mensajes de error alineados con la API (`Incomplete values`, `Pet not found`)
+- Validaciones y errores documentados para cada endpoint
+
+---
+
+**La documentación Swagger ahora refleja fielmente el comportamiento real de la API, incluyendo todos los endpoints, ejemplos de datos, validaciones y respuestas de error.**
 
 ### Características de la Documentación
 - ✅ **Interfaz interactiva** para probar endpoints

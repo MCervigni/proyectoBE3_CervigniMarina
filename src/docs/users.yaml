@@ -5,7 +5,7 @@ paths:
       tags:
         - Users
       responses:
-        '200':
+        "200":
           description: Lista de usuarios obtenida exitosamente
           content:
             application/json:
@@ -18,9 +18,93 @@ paths:
                   payload:
                     type: array
                     items:
-                      $ref: '#/components/schemas/User'
-        '500':
-          $ref: '#/components/responses/Error'
+                      $ref: "#/components/schemas/User"
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    type: string
+                    example: Internal Server Error
+
+    post:
+      summary: Crear nuevo usuario
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                role:
+                  type: string
+                  enum: [user, admin, test]
+              required:
+                - first_name
+                - last_name
+                - email
+                - password
+              example:
+                first_name: Marina
+                last_name: Cervigni
+                email: marina@test.com
+                password: 123456
+                role: test
+      responses:
+        "200":
+          description: Usuario creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    $ref: "#/components/schemas/User"
+        "400":
+          description: Datos incompletos o usuario ya existe
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    type: string
+                    example: Incomplete values
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    type: string
+                    example: Internal Server Error
 
   /api/users/{uid}:
     get:
@@ -34,9 +118,8 @@ paths:
           schema:
             type: string
           description: ID del usuario
-          example: "60acc54545c8e82e0475200b"
       responses:
-        '200':
+        "200":
           description: Usuario encontrado exitosamente
           content:
             application/json:
@@ -47,9 +130,9 @@ paths:
                     type: string
                     example: success
                   payload:
-                    $ref: '#/components/schemas/User'
-        '404':
-          description: Usuario no encontrado
+                    $ref: "#/components/schemas/User"
+        "404":
+          description: User not found
           content:
             application/json:
               schema:
@@ -60,9 +143,20 @@ paths:
                     example: error
                   error:
                     type: string
-                    example: "Usuario no encontrado"
-        '500':
-          $ref: '#/components/responses/Error'
+                    example: User not found
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    type: string
+                    example: Internal Server Error
 
     put:
       summary: Actualizar usuario por ID
@@ -75,7 +169,6 @@ paths:
           schema:
             type: string
           description: ID del usuario
-          example: "60acc54545c8e82e0475200b"
       requestBody:
         required: true
         content:
@@ -85,27 +178,22 @@ paths:
               properties:
                 first_name:
                   type: string
-                  description: Nombre del usuario
                 last_name:
                   type: string
-                  description: Apellido del usuario
                 email:
                   type: string
-                  description: Correo electrónico
                 password:
                   type: string
-                  description: Nueva contraseña
                 role:
                   type: string
-                  enum: [user, admin]
-                  description: Rol del usuario
+                  enum: [user, admin, test]
               example:
                 first_name: Marina
                 last_name: Cervigni
                 email: marina.updated@test.com
                 role: admin
       responses:
-        '200':
+        "200":
           description: Usuario actualizado exitosamente
           content:
             application/json:
@@ -115,14 +203,35 @@ paths:
                   status:
                     type: string
                     example: success
-                  payload:
-                    $ref: '#/components/schemas/User'
-        '404':
-          description: Usuario no encontrado
-        '400':
-          $ref: '#/components/responses/ValidationError'
-        '500':
-          $ref: '#/components/responses/Error'
+                  message:
+                    type: string
+                    example: User updated
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    type: string
+                    example: User not found
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    type: string
+                    example: Internal Server Error
 
     delete:
       summary: Eliminar usuario por ID
@@ -135,9 +244,8 @@ paths:
           schema:
             type: string
           description: ID del usuario
-          example: "60acc54545c8e82e0475200b"
       responses:
-        '200':
+        "200":
           description: Usuario eliminado exitosamente
           content:
             application/json:
@@ -149,9 +257,9 @@ paths:
                     example: success
                   message:
                     type: string
-                    example: "Usuario eliminado exitosamente"
-        '404':
-          description: Usuario no encontrado
+                    example: User deleted
+        "404":
+          description: User not found
           content:
             application/json:
               schema:
@@ -162,6 +270,52 @@ paths:
                     example: error
                   error:
                     type: string
-                    example: "Usuario no encontrado"
-        '500':
-          $ref: '#/components/responses/Error'
+                    example: User not found
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    type: string
+                    example: Internal Server Error
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: "60acc54545c8e82e0475200b"
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+        pets:
+          type: array
+          items:
+            type: string
+        __v:
+          type: integer
+          example: 0
+      example:
+        _id: "60acc54545c8e82e0475200b"
+        first_name: Marina
+        last_name: Cervigni
+        email: marina@test.com
+        password: "$2b$10$hashedpassword"
+        role: user
+        pets: []
+        __v: 0

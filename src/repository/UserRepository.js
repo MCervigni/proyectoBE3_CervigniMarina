@@ -6,11 +6,12 @@ export default class UserRepository extends GenericRepository{
         super(dao);
     }
     
-    getUserByEmail = (email) =>{
-        return this.getBy({email});
+    getUserByEmail = async (email) =>{
+        return await this.getBy({email});
     }
-    getUserById = (id) =>{
-        return this.getBy({_id:id})
+    getUserById = async (id) =>{
+        const user = await this.getBy({_id:id});
+        return user || null;
     }
     
 }

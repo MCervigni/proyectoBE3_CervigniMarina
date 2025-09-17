@@ -20,7 +20,7 @@ const options = {
       },
     ],
   },
-  apis: ['./src/docs/*.yaml'], // archivos YAML con la documentación
+  apis: ['./src/docs/*.yaml'], 
 };
 
 const specs = swaggerJSDoc(options);

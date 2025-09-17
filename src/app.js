@@ -13,12 +13,14 @@ import sessionsRouter from './routes/sessions.router.js';
 import mocksRouter from './routes/mocks.router.js';
 
 const app = express();
-const connection = mongoose.connect(config.MONGO_URL);
+const connection = mongoose.connect(config.MONGO_URL, {
+  dbName: config.DB_NAME
+});
 
 app.use(express.json());
 app.use(cookieParser());
 
-app.use('/documentacion', swaggerUi.serve, swaggerUi.setup(specs));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use('/api/users', usersRouter);
 app.use('/api/pets', petsRouter);
